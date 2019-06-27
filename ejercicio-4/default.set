@@ -193,7 +193,7 @@
                 "rd": "#2",
                 "rt": 0,
                 "shamt": 0,
-                "func": 9
+                "func": 50
             },
             "desc": "$t1 = PC+4; j $t2"
         },
@@ -463,6 +463,14 @@
                 "func": 42,
                 "out": {
                     "Operation": 7
+                }
+            },
+            {
+                "aluop": 2,
+                "func": 50,
+                "out": {
+                    "Operation": 2,
+                    "isJalr": 1
                 }
             }
         ],
