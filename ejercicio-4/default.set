@@ -184,18 +184,17 @@
         "jalr": {
             "type": "R",
             "args": [
-                "reg",
                 "reg"
             ],
             "fields": {
                 "op": 0,
                 "rs": "#1",
-                "rd": "#2",
+                "rd": 31,
                 "rt": 0,
                 "shamt": 0,
                 "func": 50
             },
-            "desc": "$t1 = PC+4; j $t2"
+            "desc": "$ra = PC+4; j $t2"
         },
         "addi": {
             "type": "I",
