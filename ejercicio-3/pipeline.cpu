@@ -292,7 +292,7 @@
                 "MemWrite": 1,
                 "MemToReg": 1,
                 "RegWrite": 1,
-                "ShiftAmount": 5
+                "ShiftAmount": 32
             },
             "desc": {
                 "default": "Register that separates two pipeline stages.\nThe values that transition to the next stage are stored here temporarily.\nIf Flush is active, all values are set to zero, inserting a NOP instruction.",
@@ -396,8 +396,8 @@
                 "size": 1
             },
             "out": "Out",
-            "x": 300,
-            "y": 400
+            "x": 462,
+            "y": 155
         },
         "DistImm": {
             "type": "Distributor",
@@ -488,7 +488,7 @@
         "ForkImm": {
             "type": "Fork",
             "x": 450,
-            "y": 292,
+            "y": 286,
             "size": 32,
             "in": "In",
             "out": [
@@ -1293,7 +1293,11 @@
             "from": "ForkReg",
             "out": "Out1",
             "to": "MuxReg",
-            "in": "0"
+            "in": "0",
+            "start": { "x": 445, "y": 280 },
+            "points": [
+                { "x": 445, "y": 278 }
+            ]
         },
         {
             "from": "ForkReg",
@@ -1343,7 +1347,7 @@
             "points": [
                 {
                     "x": 510,
-                    "y": 350
+                    "y": 343
                 }
             ]
         },
@@ -2235,15 +2239,33 @@
         },
         {
             "from": "ExtendShiftAmount",
-            "to": "MuxReg",
+            "to": "ID/EX",
             "out": "Out",
-            "in": "2"
+            "in": "ShiftAmount",
+            "points": [
+                { "x": 380, "y": 420 },
+                { "x": 380, "y": 320 }
+            ],
+            "end": {
+                "x": 390,
+                "y": 320
+            }
         }, 
         {
             "from": "DistInst",
-            "to": "ID/EX",
+            "to": "ExtendShiftAmount",
             "out": "10-6",
-            "in": "ShiftAmount"
+            "in": "In",
+            "start": {
+                "x": 202,
+                "y": 279
+            },
+            "points": [
+                {
+                    "x": 202,
+                    "y": 420
+                }
+            ]
         },
         {
             "from": "ID/EX",
@@ -2253,19 +2275,17 @@
             "start": {
                 "x": 405,
                 "y": 155
-            },
-            "points": [
-                {
-                    "x": 462,
-                    "y": 155
-                }
-            ]
+            }
         }, 
         {
             "from": "ALUControl",
             "out": "isShift",
             "to": "ConcatALUSrc",
-            "in": "In1"
+            "in": "In1",
+            "points": [
+                { "x": 543, "y": 356 },
+                { "x": 543, "y": 155 }
+            ]
         },
         {
             "from": "ConcatALUSrc",
@@ -2275,9 +2295,14 @@
         },
         {
             "from": "ID/EX",
-            "to": "ExtendShiftAmount",
+            "to": "MuxReg",
             "out": "ShiftAmount",
-            "in": "In"
+            "in": "2",
+            "start": { "x": 405, "y": 320 },
+            "points": [
+                { "x": 448, "y": 320 },
+                { "x": 448, "y": 294 }
+            ]
         }
     ],
     "reg_names": [
