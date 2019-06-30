@@ -129,8 +129,8 @@
         },
         "ShiftJump": {
             "type": "ShiftLeft",
-            "x": 280,
-            "y": 420,
+            "x": 255,
+            "y": 174,
             "in": {
                 "id": "In",
                 "size": 26
@@ -147,8 +147,8 @@
         },
         "DistPC": {
             "type": "Distributor",
-            "x": 350,
-            "y": 440,
+            "x": 320,
+            "y": 181,
             "in": {
                 "id": "In",
                 "size": 32
@@ -166,8 +166,8 @@
         },
         "ConcatJump": {
             "type": "Concatenator",
-            "x": 330,
-            "y": 440,
+            "x": 340,
+            "y": 202,
             "in1": {
                 "id": "In1",
                 "size": 4
@@ -184,8 +184,8 @@
         },
         "MuxNewPC": {
             "type": "Multiplexer",
-            "x": 380,
-            "y": 440,
+            "x": 360,
+            "y": 180,
             "in": [
                 "0",
                 "1"
@@ -203,11 +203,11 @@
             "out": "zero",
             "size": 32,
             "x": 410,
-            "y": 180
+            "y": 195
         },
         "MuxJumpBranch": {
             "type": "Multiplexer",
-            "x": 420,
+            "x": 423,
             "y": 180,
             "in": [
                 "0",
@@ -222,8 +222,8 @@
         },
         "ForkJump": {
             "type": "Fork",
-            "x": 350,
-            "y": 100,
+            "x": 367,
+            "y": 120,
             "size": 1,
             "in": "In",
             "out": [
@@ -2305,25 +2305,40 @@
             "from": "IF/ID",
             "out": "NewPC",
             "to": "DistPC",
-            "in": "In"
+            "in": "In",
+            "start": { "x": 195, "y": 172 },
+            "points": [ 
+                { "x": 305, "y": 172 },
+                { "x": 305, "y": 196 }
+            ]
         },
         {
             "from": "DistInst",
             "out": "jumpaddr",
             "to": "ShiftJump",
-            "in": "In"
+            "in": "In",
+            "start": { "x": 202, "y": 250 },
+            "points": [
+                {"x": 202, "y": 194 }
+            ]
         },
         {
             "from": "DistPC",
             "out": "31-28",
             "to": "ConcatJump",
-            "in": "In1"
+            "in": "In1",
+            "start": { "x": 320, "y": 202}
         },
         {
             "from": "ShiftJump",
             "out": "Out",
             "to": "ConcatJump",
-            "in": "In2"
+            "in": "In2",
+            "points": [
+                { "x": 310, "y": 194 },
+                { "x": 310, "y": 170 },
+                { "x": 340, "y": 170 }
+            ]
         },
         {
             "from": "DistPC",
@@ -2341,19 +2356,45 @@
             "from": "MuxNewPC",
             "out": "Out",
             "to": "ID/EX",
-            "in": "NewPC"
+            "in": "NewPC",
+            "points": [
+                {
+                    "x": 380,
+                    "y": 197
+                },
+                {
+                    "x": 380,
+                    "y": 175
+                }
+            ],
+            "end": {
+                "x": 390,
+                "y": 175
+            }
         },
         {
             "from": "Control",
             "out": "Jump",
             "to": "ForkJump",
-            "in": "In"
+            "in": "In",
+            "start": {
+                "x": 290,
+                "y": 120
+            },
+            "end": {
+                "x": 365,
+                "y": 120
+            }
         },
         {
             "from": "ForkJump",
             "out": "Out1",
             "to": "ID/EX",
-            "in": "Jump"
+            "in": "Jump",
+            "end": {
+                "x": 390,
+                "y": 120
+            }
         },
         {
             "from": "ForkJump",
@@ -2365,7 +2406,12 @@
             "from": "ForkImm",
             "out": "Out2",
             "to": "MuxJumpBranch",
-            "in": "0"
+            "in": "0",
+            "points": [
+                { "x": 450, "y": 220 },
+                { "x": 415, "y": 220 },
+                { "x": 415, "y": 191 }
+            ]
         },
         {
             "from": "Zero",
@@ -2377,13 +2423,21 @@
             "from": "MuxJumpBranch",
             "out": "Out",
             "to": "ShiftImm",
-            "in": "In"
+            "in": "In",
+            "points": [
+                { "x": 455, "y": 197 },
+                { "x": 455, "y": 210 }
+            ]
         },
         {
             "from": "ID/EX",
             "out": "Jump",
             "to": "MuxJumpBranch",
-            "in": "isJump"
+            "in": "isJump",
+            "start": { "x": 405, "y": 120 },
+            "points": [
+                { "x": 430, "y": 120 }
+            ]
         }
     ],
     "reg_names": [
